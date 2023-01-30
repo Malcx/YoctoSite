@@ -1,0 +1,25 @@
+RewriteEngine On
+RewriteBase /
+
+
+
+# If the file is in these folders, serve as is
+RewriteRule ^media/.*$ - [END,QSA]
+RewriteRule ^css/.*$ - [END,QSA]
+RewriteRule ^\.well-known/.*$ - [END,QSA]
+
+
+
+# If no file is specified, redirect to _yoctosite/index.php
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^(.*)$ /_yoctosite/index.php [END,QSA]
+
+
+# If the file exists and is in the root folder, serve as is
+RewriteCond %{REQUEST_URI} ^/[^/]+\.[^/]+$
+RewriteRule ^(.*)$ - [END,QSA]
+
+
+# Anything else redirect to _yoctosite/index.php
+RewriteCond %{REQUEST_URI} !^/engine/
+RewriteRule ^(.*)$ _yoctosite/index.php [END,QSA]
